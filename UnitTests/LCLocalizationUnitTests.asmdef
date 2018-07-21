@@ -1,0 +1,14 @@
+{
+    "name": "LCLocalization.UnitTests",
+    "references": [
+        "LCLocalization.Runtime"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

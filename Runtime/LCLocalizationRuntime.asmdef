@@ -1,0 +1,8 @@
+{
+    "name": "LCLocalization.Runtime",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
