@@ -61,7 +61,7 @@ public class LCSettingsEditor : Editor
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button(new GUIContent("Use these settings", "Load these settings in the LocalizationManager."), GUILayout.MaxWidth(200)))
                 {
-                    LocalizationManager.Instance.SetSettings(target as LCLocalizationSettings);
+                    LocalizationManager.Instance.SetSettingsInEditor(target as LCLocalizationSettings);
                 }
             }
         }

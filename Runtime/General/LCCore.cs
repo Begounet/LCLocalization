@@ -10,9 +10,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LC-Core", menuName = "LC Localization/Internal/Core")]
 public class LCCore : ScriptableObject
 {
-    [HideInInspector]
+    //[HideInInspector]
     [SerializeField]
-    private LCLocalizationSettings _settings;
+    public LCLocalizationSettings _settings;
 
     /// <summary>
     /// Use the LocalizationManager to set the settings

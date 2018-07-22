@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c06844198f0e9b49bd3dac1d2510d69, type: 3}
   m_Name: LC-Core
   m_EditorClassIdentifier: 
-  _settings: {fileID: 0}
+  _settings: {fileID: 11400000, guid: 704c096f4d8e0d041b352d3152cceea0, type: 2}

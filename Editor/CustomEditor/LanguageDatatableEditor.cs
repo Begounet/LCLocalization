@@ -2,30 +2,72 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEditor.IMGUI.Controls;
 
 [CustomEditor(typeof(LanguageDatatable))]
 public class LanguageDatatableEditor : Editor
 {
-    public override void OnInspectorGUI()
+    [SerializeField]
+    private MultiColumnHeaderState _multiColumnHeaderState;
+
+    [SerializeField]
+    private TreeViewState _treeViewState;
+
+    private LanguageDatatableDrawer _languageDatatableDrawer;
+
+    void OnEnable()
     {
-        serializedObject.Update();
+        if (_treeViewState == null)
         {
-            LanguageDatatableDrawer.Draw(serializedObject);
-            DrawOpenWindowButton();
+            _treeViewState = new TreeViewState();
         }
-        serializedObject.ApplyModifiedProperties();
+
+        if (_languageDatatableDrawer == null) 
+        {
+            _languageDatatableDrawer = new LanguageDatatableDrawer(_treeViewState, CreateMultiColumnHeader());
+        } 
     }
 
-    private void DrawOpenWindowButton()
+    private MultiColumnHeader CreateMultiColumnHeader()
     {
-        using (new EditorGUILayout.HorizontalScope())
+        bool isFirstInit = _multiColumnHeaderState == null;
+
+        var headerState = new MultiColumnHeaderState(LanguageDatatableDrawer.CreateColumnHeaders());
+        if (MultiColumnHeaderState.CanOverwriteSerializedFields(_multiColumnHeaderState, headerState))
         {
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("Open..."))
+            MultiColumnHeaderState.OverwriteSerializedFields(_multiColumnHeaderState, headerState);
+        }
+        _multiColumnHeaderState = headerState;
+
+        MultiColumnHeader multiColumnHeader = new MultiColumnHeader(_multiColumnHeaderState);
+        if (isFirstInit)
+        {
+            multiColumnHeader.ResizeToFit();
+        }
+        return (multiColumnHeader);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        _languageDatatableDrawer.SetLanguageDatatableSerializedObject(serializedObject);
+        //_languageDatatableDrawer.OnGUI(new Rect(0, 0, Screen.width, Screen.height));
+    }
+
+    [OnOpenAsset]
+    public static bool OnOpenAsset(int instanceID, int line)
+    {
+        LanguageDatatable datatable = EditorUtility.InstanceIDToObject(instanceID) as LanguageDatatable;
+        if (datatable != null)
+        {
+            SerializedObject datatableSo = new SerializedObject(datatable);
+            if (datatableSo != null)
             {
-                LanguageDatatableWindow.Init(serializedObject);
+                LanguageDatatableWindow.Init(datatableSo);
+                return (true);
             }
         }
+        return (false);
     }
 
 }

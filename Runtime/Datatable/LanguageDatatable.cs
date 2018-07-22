@@ -6,5 +6,10 @@ using UnityEngine;
 public class LanguageDatatable : ScriptableObject
 {  
     [SerializeField]
-    public List<LanguageDatatableRow> _rows;
+    private List<LanguageDatatableRow> _rows;
+
+    internal List<LanguageDatatableRow> GetRows()
+    {
+        return _rows;
+    }
 }

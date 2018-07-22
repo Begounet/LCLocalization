@@ -33,4 +33,34 @@ public class Guid
         System.Guid guid = System.Guid.NewGuid();
         return new Guid(guid.ToString());
     }
+
+    public static bool operator==(Guid a, Guid b)
+    {
+        return (a._guid == b._guid);
+    }
+
+    public static bool operator!=(Guid a, Guid b)
+    {
+        return (a._guid != b._guid);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Guid)
+        {
+            Guid otherGuid = obj as Guid;
+            return (this == otherGuid);
+        }
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return _guid.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return _guid;
+    }
 }

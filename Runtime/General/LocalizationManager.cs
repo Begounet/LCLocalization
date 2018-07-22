@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [assembly: InternalsVisibleTo("LCLocalization.Editor")]
-public class LocalizationManager
+public partial class LocalizationManager
 {
     public event Action OnSettingsChanged;
 

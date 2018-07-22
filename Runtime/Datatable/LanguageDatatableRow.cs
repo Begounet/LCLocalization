@@ -1,27 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[assembly: InternalsVisibleTo("LCLocalization.Editor")]
 [System.Serializable]
-public class LanguageDatatableRow : IIdentifiable
+public partial class LanguageDatatableRow : IIdentifiable
 {
     [SerializeField]
-    public Guid _guid;
+    internal Guid guid;
 
     [SerializeField]
-    public List<LanguageDatatableItem> _texts;
+    internal string key;
 
+    [SerializeField]
+    internal List<LanguageDatatableItem> _languageItems;
+
+    internal LanguageDatatableItem GetLanguageText(Language language)
+    {
+        LCLocalizationSettings settings = LocalizationManager.Instance.GetCurrentSettings();
+        int languageIndex = settings.GetLanguageIndex(language);
+        if (languageIndex >= 0 && languageIndex < _languageItems.Count)
+        {
+            return (_languageItems[languageIndex]);
+        }
+        return (null);
+    }
 
     #region IIdentifiable implementation
 
     public Guid GetGuid()
     {
-        return _guid;
+        return guid;
     }
 
-    public void SetGuid(Guid guid)
+    public void SetGuid(Guid newGuid)
     {
-        _guid = guid;
+        guid = newGuid;
     }
 
     #endregion

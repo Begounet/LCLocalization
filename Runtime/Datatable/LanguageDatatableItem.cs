@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public class LanguageDatatableItem
 {
-    public string Text;
+    public string text;
 }
